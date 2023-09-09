@@ -1,4 +1,6 @@
-import 'package:bank_sha/ui/pages/splash_page.dart';
+import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
+import 'package:bank_sha/ui/signin/sign_in_page.dart';
+import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,9 +12,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+      home: const SplashPage(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case SplashPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const SplashPage(),
+            );
+          case OnboardingPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const OnboardingPage(),
+            );
+          case SignInPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const SignInPage(),
+            );
+          default:
+            return MaterialPageRoute(
+              builder: (_) {
+                return const Scaffold(
+                  body: Center(
+                    child: Text('Page not found!'),
+                  ),
+                );
+              },
+            );
+        }
+      },
     );
   }
 }
