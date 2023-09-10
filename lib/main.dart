@@ -1,3 +1,4 @@
+import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
@@ -36,30 +37,36 @@ class MyApp extends StatelessWidget {
             );
           case SignUpPage.routeName:
             return MaterialPageRoute(
-              builder: (context) => const SignUpPage(),
+              builder: (_) => const SignUpPage(),
             );
           case SignUpSetProfile.routeName:
             return MaterialPageRoute(
-              builder: (context) => const SignUpSetProfile(),
+              builder: (_) => const SignUpSetProfile(),
             );
           case SignUpSetKtp.routeName:
             return MaterialPageRoute(
-              builder: (context) => const SignUpSetKtp(),
+              builder: (_) => const SignUpSetKtp(),
             );
           case SignUpSuccessPage.routeName:
             return MaterialPageRoute(
-              builder: (context) => const SignUpSuccessPage(),
+              builder: (_) => const SignUpSuccessPage(),
             );
           case HomePage.routeName:
             return MaterialPageRoute(
-              builder: (context) => const HomePage(),
+              builder: (_) => const HomePage(),
             );
           default:
             return MaterialPageRoute(
               builder: (_) {
-                return const Scaffold(
+                return Scaffold(
                   body: Center(
-                    child: Text('Page not found!'),
+                    child: Text(
+                      'Page not found!',
+                      style: blackTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                    ),
                   ),
                 );
               },

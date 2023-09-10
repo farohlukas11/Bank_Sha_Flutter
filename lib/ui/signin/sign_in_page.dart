@@ -1,4 +1,5 @@
 import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/forms.dart';
@@ -72,7 +73,10 @@ class SignInPage extends StatelessWidget {
                 ),
                 CustomFilledButton(
                   title: 'Sign In',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, HomePage.routeName, (route) => false);
+                  },
                 ),
               ],
             ),
