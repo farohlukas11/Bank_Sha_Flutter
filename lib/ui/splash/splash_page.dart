@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bank_sha/shared/theme.dart';
+import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:flutter/material.dart';
 

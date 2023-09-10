@@ -1,13 +1,15 @@
-import 'package:bank_sha/common/shared/theme.dart';
-import 'package:bank_sha/ui/signup/sign_up_page.dart';
-import 'package:bank_sha/ui/widgets/buttons.dart';
-import 'package:bank_sha/ui/widgets/forms.dart';
+import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
-  static const routeName = '/sign-in';
+import '../../common/shared/theme.dart';
+import '../signupprofile/sign_up_set_profile_page.dart';
+import '../widgets/buttons.dart';
+import '../widgets/forms.dart';
 
-  const SignInPage({super.key});
+class SignUpPage extends StatelessWidget {
+  static const routeName = '/sign-up';
+
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           Text(
-            'Sign In &\nGrow Your Finance',
+            'Join Us to Unlock\nYour Growth',
             style: blackTextStyle.copyWith(
               fontSize: 20,
               fontWeight: semiBold,
@@ -44,6 +46,14 @@ class SignInPage extends StatelessWidget {
             ),
             child: Column(
               children: [
+                //FUllNAME INPUT
+                const CustomFormField(
+                  title: 'Full Name',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+
                 //EMAIL INPUT
                 const CustomFormField(
                   title: 'Email Address',
@@ -71,18 +81,21 @@ class SignInPage extends StatelessWidget {
                   height: 30,
                 ),
                 CustomFilledButton(
-                  title: 'Sign In',
-                  onPressed: () {},
+                  title: 'Continue',
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(context,
+                        SignUpSetProfile.routeName, (route) => false);
+                  },
                 ),
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 50),
             child: CustomTextButton(
-              title: 'Create New Account',
+              title: 'Sign In',
               onPressed: () {
-                Navigator.pushNamed(context, SignUpPage.routeName);
+                Navigator.pushNamed(context, SignInPage.routeName);
               },
             ),
           ),

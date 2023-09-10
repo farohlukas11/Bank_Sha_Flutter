@@ -1,5 +1,7 @@
-import 'package:bank_sha/shared/theme.dart';
+import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
+import 'package:bank_sha/ui/signup/sign_up_page.dart';
+import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -141,74 +143,33 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                 ),
                               ),
                               const Spacer(),
-                              SizedBox(
+                              CustomFilledButton(
+                                title: 'Continue',
+                                onPressed: () {
+                                  carouselController.nextPage();
+                                },
                                 width: 150,
-                                height: 50,
-                                child: TextButton(
-                                  onPressed: () {
-                                    carouselController.nextPage();
-                                  },
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: purpleColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(56),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Continue',
-                                    style: whiteTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: semiBold,
-                                    ),
-                                  ),
-                                ),
                               ),
                             ],
                           )
                         : Column(
                             children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: purpleColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(56),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Get Started',
-                                    style: whiteTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: semiBold,
-                                    ),
-                                  ),
-                                ),
+                              CustomFilledButton(
+                                title: 'Get Started',
+                                onPressed: () {
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      SignUpPage.routeName, (route) => false);
+                                },
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 24,
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamedAndRemoveUntil(context,
-                                        SignInPage.routeName, (route) => false);
-                                  },
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  child: Text(
-                                    'Sign In',
-                                    style: greyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: regular,
-                                    ),
-                                  ),
-                                ),
+                              CustomTextButton(
+                                title: 'Sign In',
+                                onPressed: () {
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      SignInPage.routeName, (route) => false);
+                                },
                               ),
                             ],
                           ),

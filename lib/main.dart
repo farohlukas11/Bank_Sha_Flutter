@@ -1,5 +1,10 @@
+import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
+import 'package:bank_sha/ui/signup/sign_up_page.dart';
+import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
+import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
+import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +33,26 @@ class MyApp extends StatelessWidget {
           case SignInPage.routeName:
             return MaterialPageRoute(
               builder: (_) => const SignInPage(),
+            );
+          case SignUpPage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const SignUpPage(),
+            );
+          case SignUpSetProfile.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const SignUpSetProfile(),
+            );
+          case SignUpSetKtp.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const SignUpSetKtp(),
+            );
+          case SignUpSuccessPage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const SignUpSuccessPage(),
+            );
+          case HomePage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const HomePage(),
             );
           default:
             return MaterialPageRoute(
