@@ -1,6 +1,9 @@
 import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
+import 'package:bank_sha/ui/pin/pin_page.dart';
+import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
@@ -20,7 +23,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashPage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: lightBackgroundColor,
+        appBarTheme: AppBarTheme(
+          backgroundColor: lightBackgroundColor,
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: blackColor,
+            size: 20,
+          ),
+          titleTextStyle: blackTextStyle.copyWith(
+            fontSize: 20,
+            fontWeight: semiBold,
+          ),
+        ),
+      ),
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
           case SplashPage.routeName:
@@ -54,6 +72,18 @@ class MyApp extends StatelessWidget {
           case HomePage.routeName:
             return MaterialPageRoute(
               builder: (_) => const HomePage(),
+            );
+          case ProfilePage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const ProfilePage(),
+            );
+          case PinPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const PinPage(),
+            );
+          case EditProfilePage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const EditProfilePage(),
             );
           default:
             return MaterialPageRoute(

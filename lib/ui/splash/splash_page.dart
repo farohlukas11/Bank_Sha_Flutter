@@ -5,7 +5,7 @@ import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
-  static const routeName = '/splash';
+  static const routeName = '/';
 
   const SplashPage({super.key});
 

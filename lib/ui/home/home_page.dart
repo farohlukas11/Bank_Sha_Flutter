@@ -1,6 +1,8 @@
 import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/widgets/home_send_again_item.dart';
 import 'package:bank_sha/ui/widgets/home_services_item.dart';
+import 'package:bank_sha/ui/widgets/home_tips_item.dart';
 import 'package:bank_sha/ui/widgets/home_transaction_latest_item.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +21,13 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          buildProfile(),
+          buildProfile(context),
           buildWalletCard(),
           buildLevel(),
           buildServices(),
           buildLatestTransaction(),
           buildSendAgain(),
+          buildFriendlyTips(),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -94,7 +97,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildProfile() {
+  Widget buildProfile(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 40),
       child: Row(
@@ -119,31 +122,34 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/img_profile.png',
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, ProfilePage.routeName),
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/img_profile.png',
+                  ),
                 ),
               ),
-            ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                width: 16,
-                height: 16,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: whiteColor,
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.check_circle,
-                    color: greenColor,
-                    size: 14,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteColor,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.check_circle,
+                      color: greenColor,
+                      size: 14,
+                    ),
                   ),
                 ),
               ),
@@ -404,6 +410,54 @@ class HomePage extends StatelessWidget {
     );
   }
 
-
-
+  Widget buildFriendlyTips() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Friendly Tips',
+            style: blackTextStyle.copyWith(
+              fontWeight: semiBold,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(
+            height: 14,
+          ),
+          const Wrap(
+            spacing: 2,
+            runSpacing: 18,
+            children: [
+              HomeTipsItem(
+                imageUrl: 'assets/img_tips1.png',
+                title: 'Best tips for using\na credit card',
+                url:
+                    'https://www.capitalone.com/learn-grow/money-management/tips-using-credit-responsibly/',
+              ),
+              HomeTipsItem(
+                imageUrl: 'assets/img_tips2.png',
+                title: 'Spot the good pie\nof finance model',
+                url:
+                    'https://www.nasdaq.com/glossary/p/pie-model-of-capital-structure',
+              ),
+              HomeTipsItem(
+                imageUrl: 'assets/img_tips3.png',
+                title: 'Great hack to get\nbetter advices',
+                url:
+                    'https://www.lifehack.org/articles/lifestyle/100-life-hacks-that-make-life-easier.html',
+              ),
+              HomeTipsItem(
+                imageUrl: 'assets/img_tips4.png',
+                title: 'Save more penny\nbuy this instead',
+                url:
+                    'https://www.thesun.co.uk/money/18606381/i-did-penny-savings-challenge-first-home/',
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

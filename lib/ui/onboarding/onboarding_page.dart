@@ -33,7 +33,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBackgroundColor,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
