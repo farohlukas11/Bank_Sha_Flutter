@@ -1,6 +1,7 @@
 import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
+import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';
 import 'package:bank_sha/ui/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,12 @@ class ProfilePage extends StatelessWidget {
                 ProfileMenuItem(
                   image: 'assets/ic_edit_profile.png',
                   title: 'Edit Profile',
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (await Navigator.pushNamed(context, PinPage.routeName) ==
+                        true) {
+                      Navigator.pushNamed(context, EditProfilePage.routeName);
+                    }
+                  },
                 ),
                 ProfileMenuItem(
                   image: 'assets/ic_pin.png',
@@ -91,7 +97,8 @@ class ProfilePage extends StatelessWidget {
                   onPressed: () async {
                     if (await Navigator.pushNamed(context, PinPage.routeName) ==
                         true) {
-                      Navigator.pushNamed(context, EditProfilePage.routeName);
+                      Navigator.pushNamed(
+                          context, ProfileEditPinPage.routeName);
                     }
                   },
                 ),

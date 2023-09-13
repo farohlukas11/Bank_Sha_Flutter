@@ -1,5 +1,6 @@
 import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
+import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/widgets/home_send_again_item.dart';
 import 'package:bank_sha/ui/widgets/home_services_item.dart';
 import 'package:bank_sha/ui/widgets/home_tips_item.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
           buildProfile(context),
           buildWalletCard(),
           buildLevel(),
-          buildServices(),
+          buildServices(context),
           buildLatestTransaction(),
           buildSendAgain(),
           buildFriendlyTips(),
@@ -263,7 +264,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildServices() {
+  Widget buildServices(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 30),
       child: Column(
@@ -279,22 +280,23 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               HomeServiceItem(
                 itemAssets: 'assets/ic_top_up.png',
                 title: 'Top Up',
+                onTap: () => Navigator.pushNamed(context, TopUpPage.routeName),
               ),
-              HomeServiceItem(
+              const HomeServiceItem(
                 itemAssets: 'assets/ic_send.png',
                 title: 'Send',
               ),
-              HomeServiceItem(
+              const HomeServiceItem(
                 itemAssets: 'assets/ic_withdraw.png',
                 title: 'Withdraw',
               ),
-              HomeServiceItem(
+              const HomeServiceItem(
                 itemAssets: 'assets/ic_more.png',
                 title: 'More',
               ),

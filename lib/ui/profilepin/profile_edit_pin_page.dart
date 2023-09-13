@@ -5,10 +5,10 @@ import '../../common/shared/theme.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 
-class EditProfilePage extends StatelessWidget {
-  static const routeName = '/edit-profile';
+class ProfileEditPinPage extends StatelessWidget {
+  static const routeName = '/edit-profile-pin';
 
-  const EditProfilePage({super.key});
+  const ProfileEditPinPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class EditProfilePage extends StatelessWidget {
           ),
         ),
         title: const Text(
-          'Edit Profile',
+          'Edit PIN',
         ),
       ),
       body: ListView(
@@ -40,35 +40,19 @@ class EditProfilePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                //USERNAME INPUT
+                //Old PIN INPUT
                 const CustomFormField(
-                  title: 'Username',
+                  title: 'Old PIN',
                 ),
                 const SizedBox(
                   height: 16,
                 ),
 
-                //FUllNAME INPUT
+                //FUllNAME New PIN
                 const CustomFormField(
-                  title: 'Full Name',
-                ),
-                const SizedBox(
-                  height: 16,
+                  title: 'New PIN',
                 ),
 
-                //EMAIL INPUT
-                const CustomFormField(
-                  title: 'Email Address',
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-
-                //PASSWORD INPUT
-                const CustomFormField(
-                  title: 'Password',
-                  obscureText: true,
-                ),
                 const SizedBox(
                   height: 30,
                 ),

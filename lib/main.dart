@@ -1,15 +1,18 @@
 import 'package:bank_sha/common/shared/theme.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
+import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
+import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
 import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
+import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -84,6 +87,18 @@ class MyApp extends StatelessWidget {
           case EditProfilePage.routeName:
             return MaterialPageRoute(
               builder: (_) => const EditProfilePage(),
+            );
+          case ProfileEditPinPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const ProfileEditPinPage(),
+            );
+          case ProfileEditSuccessPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const ProfileEditSuccessPage(),
+            );
+          case TopUpPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TopUpPage(),
             );
           default:
             return MaterialPageRoute(
