@@ -13,6 +13,8 @@ import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
+import 'package:bank_sha/ui/topup/topup_success_page.dart';
+import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -99,6 +101,14 @@ class MyApp extends StatelessWidget {
           case TopUpPage.routeName:
             return MaterialPageRoute(
               builder: (_) => const TopUpPage(),
+            );
+          case TopUpAmountPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TopUpAmountPage(),
+            );
+          case TopUpSuccessPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TopUpSuccessPage(),
             );
           default:
             return MaterialPageRoute(
