@@ -1,4 +1,5 @@
 import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
@@ -15,6 +16,9 @@ import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/topup/topup_success_page.dart';
 import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
+import 'package:bank_sha/ui/transfer/transfer_page.dart';
+import 'package:bank_sha/ui/transfer/transfer_success_page.dart';
+import 'package:bank_sha/ui/transferamount/transfer_amount_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -109,6 +113,22 @@ class MyApp extends StatelessWidget {
           case TopUpSuccessPage.routeName:
             return MaterialPageRoute(
               builder: (_) => const TopUpSuccessPage(),
+            );
+          case TransferPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TransferPage(),
+            );
+          case TransferAmountPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TransferAmountPage(),
+            );
+          case TransferSuccessPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const TransferSuccessPage(),
+            );
+          case DataProviderPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const DataProviderPage(),
             );
           default:
             return MaterialPageRoute(

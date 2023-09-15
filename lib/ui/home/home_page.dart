@@ -1,6 +1,8 @@
 import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
+import 'package:bank_sha/ui/transfer/transfer_page.dart';
 import 'package:bank_sha/ui/widgets/home_send_again_item.dart';
 import 'package:bank_sha/ui/widgets/home_services_item.dart';
 import 'package:bank_sha/ui/widgets/home_tips_item.dart';
@@ -288,17 +290,25 @@ class HomePage extends StatelessWidget {
                 title: 'Top Up',
                 onTap: () => Navigator.pushNamed(context, TopUpPage.routeName),
               ),
-              const HomeServiceItem(
+              HomeServiceItem(
                 itemAssets: 'assets/ic_send.png',
                 title: 'Send',
+                onTap: () =>
+                    Navigator.pushNamed(context, TransferPage.routeName),
               ),
               const HomeServiceItem(
                 itemAssets: 'assets/ic_withdraw.png',
                 title: 'Withdraw',
               ),
-              const HomeServiceItem(
+              HomeServiceItem(
                 itemAssets: 'assets/ic_more.png',
                 title: 'More',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const MoreDialog(),
+                  );
+                },
               ),
             ],
           )
@@ -459,6 +469,84 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MoreDialog extends StatelessWidget {
+  const MoreDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: EdgeInsets.zero,
+      alignment: Alignment.bottomCenter,
+      content: Container(
+        padding: const EdgeInsets.all(30),
+        height: 326,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color: lightBackgroundColor,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Do More With Us',
+                style: blackTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semiBold,
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  HomeServiceItem(
+                    itemAssets: 'assets/ic_product_data.png',
+                    title: 'Data',
+                    onTap: () => Navigator.pushNamed(
+                        context, DataProviderPage.routeName),
+                  ),
+                  const HomeServiceItem(
+                    itemAssets: 'assets/ic_product_water.png',
+                    title: 'Water',
+                  ),
+                  const HomeServiceItem(
+                    itemAssets: 'assets/ic_product_stream.png',
+                    title: 'Stream',
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 29,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  HomeServiceItem(
+                    itemAssets: 'assets/ic_product_movie.png',
+                    title: 'Movie',
+                  ),
+                  HomeServiceItem(
+                    itemAssets: 'assets/ic_product_food.png',
+                    title: 'Food',
+                  ),
+                  HomeServiceItem(
+                    itemAssets: 'assets/ic_product_travel.png',
+                    title: 'Travel',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
