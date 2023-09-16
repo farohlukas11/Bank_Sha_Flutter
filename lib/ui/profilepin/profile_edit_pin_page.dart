@@ -1,7 +1,7 @@
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/shared/theme.dart';
+import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 

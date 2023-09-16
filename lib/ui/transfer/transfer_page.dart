@@ -1,4 +1,4 @@
-import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/transferamount/transfer_amount_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/recent_user_item.dart';

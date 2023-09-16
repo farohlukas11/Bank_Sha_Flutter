@@ -2,7 +2,7 @@ import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/shared/theme.dart';
+import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 
 class TransferSuccessPage extends StatelessWidget {

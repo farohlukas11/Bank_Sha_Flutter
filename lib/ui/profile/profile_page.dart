@@ -1,4 +1,4 @@
-import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
 import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';

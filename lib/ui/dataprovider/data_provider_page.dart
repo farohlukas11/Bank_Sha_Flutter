@@ -1,7 +1,9 @@
+import 'package:bank_sha/common/shared_method.dart';
+import 'package:bank_sha/ui/datapackage/data_package_page.dart';
 import 'package:bank_sha/ui/widgets/provider_item.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/shared/theme.dart';
+import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 
 class DataProviderPage extends StatelessWidget {
@@ -28,14 +30,14 @@ class DataProviderPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
-          buildFromWallet(),
-          buildSelectProvider(),
+          _buildFromWallet(),
+          _buildSelectProvider(context),
         ],
       ),
     );
   }
 
-  Widget buildFromWallet() {
+  Widget _buildFromWallet() {
     return Container(
       margin: const EdgeInsets.only(
         top: 30,
@@ -111,7 +113,7 @@ class DataProviderPage extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    'Balance: Rp 180.000.000',
+                    'Balance: ${formatCurrency(180000000)}',
                     textAlign: TextAlign.start,
                     style: greyTextStyle.copyWith(
                       fontSize: 12,
@@ -127,7 +129,7 @@ class DataProviderPage extends StatelessWidget {
     );
   }
 
-  Widget buildSelectProvider() {
+  Widget _buildSelectProvider(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 40),
       child: Column(
@@ -160,7 +162,9 @@ class DataProviderPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: CustomFilledButton(
               title: 'Continue',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, DataPackagePage.routeName);
+              },
             ),
           ),
         ],

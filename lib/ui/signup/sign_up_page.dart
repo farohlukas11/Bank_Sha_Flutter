@@ -1,7 +1,7 @@
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/shared/theme.dart';
+import '../../common/theme.dart';
 import '../signupprofile/sign_up_set_profile_page.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';

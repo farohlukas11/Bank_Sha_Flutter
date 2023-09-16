@@ -1,4 +1,4 @@
-import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';

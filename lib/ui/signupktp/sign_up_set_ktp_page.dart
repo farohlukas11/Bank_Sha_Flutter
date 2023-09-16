@@ -2,7 +2,7 @@ import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/shared/theme.dart';
+import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 
 class SignUpSetKtp extends StatelessWidget {

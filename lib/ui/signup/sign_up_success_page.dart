@@ -1,4 +1,4 @@
-import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:flutter/material.dart';

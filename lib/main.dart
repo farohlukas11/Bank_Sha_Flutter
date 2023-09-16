@@ -1,4 +1,6 @@
-import 'package:bank_sha/common/shared/theme.dart';
+import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/ui/datapackage/data_package_page.dart';
+import 'package:bank_sha/ui/datapackage/data_package_success_page.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
@@ -129,6 +131,14 @@ class MyApp extends StatelessWidget {
           case DataProviderPage.routeName:
             return MaterialPageRoute(
               builder: (_) => const DataProviderPage(),
+            );
+          case DataPackagePage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const DataPackagePage(),
+            );
+          case DataPackageSuccessPage.routeName:
+            return MaterialPageRoute(
+              builder: (_) => const DataPackageSuccessPage(),
             );
           default:
             return MaterialPageRoute(

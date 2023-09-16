@@ -1,14 +1,13 @@
 import 'package:bank_sha/ui/home/home_page.dart';
-import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 
-class TopUpSuccessPage extends StatelessWidget {
-  static const routeName = '/topup-success';
+class DataPackageSuccessPage extends StatelessWidget {
+  static const routeName = '/data-success';
 
-  const TopUpSuccessPage({super.key});
+  const DataPackageSuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class TopUpSuccessPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Top Up\nWallet Berhasil',
+              'Paket Data\nBerhasil Terbeli',
               textAlign: TextAlign.center,
               style: blackTextStyle.copyWith(
                 fontSize: 20,
