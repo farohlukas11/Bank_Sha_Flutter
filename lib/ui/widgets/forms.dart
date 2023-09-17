@@ -6,12 +6,14 @@ class CustomFormField extends StatelessWidget {
   final String title;
   final bool obscureText;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
 
   const CustomFormField({
     super.key,
     required this.title,
     this.obscureText = false,
     this.controller,
+    this.keyboardType,
   });
 
   @override
@@ -32,6 +34,7 @@ class CustomFormField extends StatelessWidget {
           obscureText: obscureText,
           controller: controller,
           style: blackTextStyle,
+          keyboardType: keyboardType,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

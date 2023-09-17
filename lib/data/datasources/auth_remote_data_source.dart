@@ -15,6 +15,8 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> signUp(SignUpFormModel model);
 
   Future<UserModel> signIn(SignInFormModel model);
+
+  Future<String> logOut(String token);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -34,7 +36,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['is_email_exist'];
     } else if (response.statusCode == 400) {
-      return jsonDecode(response.body)['errors'];
+      throw jsonDecode(response.body)['errors'];
     } else {
       throw ServerException();
     }
@@ -44,15 +46,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserModel> signIn(SignInFormModel model) async {
     final response = await client.post(
       Uri.parse('$baseUrl/login'),
-      body: jsonEncode(
-        model.toJson(),
-      ),
+      body: model.toJson(),
     );
 
     if (response.statusCode == 200) {
       return UserModel.fromJson(
         jsonDecode(response.body),
       );
+    } else if (response.statusCode == 400) {
+      throw jsonDecode(response.body)['message'];
     } else {
       throw ServerException();
     }
@@ -62,15 +64,34 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserModel> signUp(SignUpFormModel model) async {
     final response = await client.post(
       Uri.parse('$baseUrl/register'),
-      body: jsonEncode(
-        model.toJson(),
-      ),
+      body: model.toJson(),
     );
 
     if (response.statusCode == 200) {
-      return UserModel.fromJson(
+      UserModel user = UserModel.fromJson(
         jsonDecode(response.body),
       );
+      user = user.copyWith(password: model.password);
+
+      return user;
+    } else if (response.statusCode == 400) {
+      throw jsonDecode(response.body)['message'];
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> logOut(String token) async {
+    final response = await client.post(
+      Uri.parse('$baseUrl/logout'),
+      headers: {
+        'Token': token,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['message'];
     } else {
       throw ServerException();
     }

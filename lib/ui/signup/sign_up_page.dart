@@ -44,8 +44,19 @@ class _SignUpPageState extends State<SignUpPage> {
             var result = state.data;
 
             if (!result) {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, SignUpSetProfile.routeName, (route) => false);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignUpSetProfile(
+                    model: SignUpFormModel(
+                      name: nameController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                    ),
+                  ),
+                ),
+                (route) => false,
+              );
             } else {
               showCustomSnackBar(context, 'Email sudah ada yang menggunakan!');
             }

@@ -5,6 +5,7 @@ class UserModel extends Equatable {
   final String? name;
   final String? email;
   final String? username;
+  final String? password;
   final dynamic emailVerifiedAt;
   final int? verified;
   final String? profilePicture;
@@ -23,6 +24,7 @@ class UserModel extends Equatable {
      this.name,
      this.email,
      this.username,
+    this.password,
      this.emailVerifiedAt,
      this.verified,
      this.profilePicture,
@@ -42,6 +44,7 @@ class UserModel extends Equatable {
     String? name,
     String? email,
     String? username,
+    String? password,
     dynamic emailVerifiedAt,
     int? verified,
     String? profilePicture,
@@ -60,6 +63,7 @@ class UserModel extends Equatable {
         name: name ?? this.name,
         email: email ?? this.email,
         username: username ?? this.username,
+        password: password ?? this.password,
         emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
         verified: verified ?? this.verified,
         profilePicture: profilePicture ?? this.profilePicture,

@@ -6,6 +6,7 @@ import 'package:bank_sha/domain/usecase/check_email.dart';
 import 'package:bank_sha/domain/usecase/signin_user.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
+import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
@@ -14,6 +15,7 @@ final locator = GetIt.instance;
 void init() {
   //bloc
   locator.registerFactory(() => CheckEmailBloc(locator()));
+  locator.registerFactory(() => SignupBloc(locator()));
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));

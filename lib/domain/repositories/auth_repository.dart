@@ -11,4 +11,6 @@ abstract class AuthRepository {
   Future<Either<Failure, UserModel>> signUp(SignUpFormModel model);
 
   Future<Either<Failure, UserModel>> signIn(SignInFormModel model);
+
+  Future<Either<Failure, String>> logOut(String token);
 }

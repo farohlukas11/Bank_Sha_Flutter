@@ -49,4 +49,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ConnectionFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> logOut(String token) async {
+    try {
+      final result = await authRemoteDataSource.logOut(token);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on SocketException {
+      return Left(ConnectionFailure());
+    }
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/domain/usecase/check_email.dart';
 import 'package:bloc/bloc.dart';

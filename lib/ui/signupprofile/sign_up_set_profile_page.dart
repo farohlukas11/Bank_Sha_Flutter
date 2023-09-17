@@ -1,17 +1,44 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:bank_sha/common/shared_method.dart';
+import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/widgets/forms.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../common/theme.dart';
 import '../widgets/buttons.dart';
 
-class SignUpSetProfile extends StatelessWidget {
+class SignUpSetProfile extends StatefulWidget {
   static const routeName = '/sign-up-set-profile';
+  final SignUpFormModel model;
 
-  const SignUpSetProfile({super.key});
+  const SignUpSetProfile({
+    super.key,
+    required this.model,
+  });
+
+  @override
+  State<SignUpSetProfile> createState() => _SignUpSetProfileState();
+}
+
+class _SignUpSetProfileState extends State<SignUpSetProfile> {
+  final pinController = TextEditingController(text: '');
+  XFile? selectedImage;
+
+  bool _validate() {
+    if (pinController.text.length != 6) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.model.toJson().toString());
+
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -45,31 +72,36 @@ class SignUpSetProfile extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Container(
-                //   width: 120,
-                //   height: 120,
-                //   decoration: BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     color: lightBackgroundColor,
-                //   ),
-                //   child: Center(
-                //     child: Image.asset(
-                //       'assets/ic_upload.png',
-                //       width: 32,
-                //     ),
-                //   ),
-                // ),
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/img_profile.png',
-                      ),
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () async {
+                    final image = await selectImage();
+                    setState(() {
+                      selectedImage = image;
+                    });
+                  },
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lightBackgroundColor,
+                      image: selectedImage != null
+                          ? DecorationImage(
+                              image: FileImage(
+                                File(selectedImage!.path),
+                              ),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
                     ),
+                    child: selectedImage != null
+                        ? null
+                        : Center(
+                            child: Image.asset(
+                              'assets/ic_upload.png',
+                              width: 32,
+                            ),
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -85,9 +117,11 @@ class SignUpSetProfile extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const CustomFormField(
+                CustomFormField(
                   title: 'Set PIN (6 digit number)',
                   obscureText: true,
+                  controller: pinController,
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
                   height: 30,
@@ -95,8 +129,26 @@ class SignUpSetProfile extends StatelessWidget {
                 CustomFilledButton(
                   title: 'Continue',
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, SignUpSetKtp.routeName, (route) => false);
+                    if (_validate()) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpSetKtp(
+                              model: widget.model.copyWith(
+                                pin: pinController.text,
+                                profilePicture: selectedImage != null
+                                    ? 'data:image/png;base64,${base64Encode(
+                                        File(selectedImage!.path)
+                                            .readAsBytesSync(),
+                                      )}'
+                                    : null,
+                              ),
+                            ),
+                          ),
+                          (route) => false);
+                    } else {
+                      showCustomSnackBar(context, 'PIN harus 6 Digit!');
+                    }
                   },
                 ),
               ],

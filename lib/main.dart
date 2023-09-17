@@ -1,4 +1,5 @@
 import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/ui/datapackage/data_package_page.dart';
 import 'package:bank_sha/ui/datapackage/data_package_success_page.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
@@ -13,6 +14,7 @@ import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
+import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
 import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.locator<CheckEmailBloc>()),
+        BlocProvider(create: (_) => di.locator<SignupBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -77,12 +80,22 @@ class MyApp extends StatelessWidget {
                 builder: (_) => const SignUpPage(),
               );
             case SignUpSetProfile.routeName:
+              final SignUpFormModel model =
+                  settings.arguments as SignUpFormModel;
               return MaterialPageRoute(
-                builder: (_) => const SignUpSetProfile(),
+                builder: (_) => SignUpSetProfile(
+                  model: model,
+                ),
+                settings: settings,
               );
             case SignUpSetKtp.routeName:
+              final SignUpFormModel model =
+                  settings.arguments as SignUpFormModel;
               return MaterialPageRoute(
-                builder: (_) => const SignUpSetKtp(),
+                builder: (_) => SignUpSetKtp(
+                  model: model,
+                ),
+                settings: settings,
               );
             case SignUpSuccessPage.routeName:
               return MaterialPageRoute(
