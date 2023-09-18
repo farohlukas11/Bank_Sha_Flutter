@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
@@ -24,7 +22,7 @@ class _PinPageState extends State<PinPage> {
       });
     }
 
-    if (pinController.text.length == 6){
+    if (pinController.text.length == 6) {
       if (pinController.text == '123123') {
         Navigator.pop(context, true);
       } else {

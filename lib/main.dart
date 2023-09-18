@@ -10,6 +10,7 @@ import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';
+import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.locator<CheckEmailBloc>()),
-        BlocProvider(create: (_) => di.locator<SignupBloc>()),
+        BlocProvider(create: (_) => di.locator<SignUpBloc>()),
+        BlocProvider(create: (_) => di.locator<SignInBloc>())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

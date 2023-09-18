@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 );
                           } else {
                             showCustomSnackBar(
-                                context, 'Semua field harus diisi');
+                                context, 'Semua field harus diisi!');
                           }
                         },
                       ),

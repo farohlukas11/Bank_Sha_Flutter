@@ -37,7 +37,7 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
   Widget build(BuildContext context) {
     debugPrint(widget.model.toJson().toString());
     return Scaffold(
-      body: BlocConsumer<SignupBloc, SignupState>(
+      body: BlocConsumer<SignUpBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupError) {
             showCustomSnackBar(context, state.message);
@@ -133,7 +133,7 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                       title: 'Continue',
                       onPressed: () {
                         if (_validate()) {
-                          context.read<SignupBloc>().add(
+                          context.read<SignUpBloc>().add(
                                 OnRegisterEvent(
                                   widget.model.copyWith(
                                     ktp: 'data:image/png;base64,${base64Encode(
@@ -160,7 +160,7 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                   title: 'Skip for Now',
                   onPressed: () {
                     context
-                        .read<SignupBloc>()
+                        .read<SignUpBloc>()
                         .add(OnRegisterEvent(widget.model));
                   },
                 ),

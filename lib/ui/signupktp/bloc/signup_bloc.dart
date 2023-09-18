@@ -9,8 +9,8 @@ part 'signup_event.dart';
 
 part 'signup_state.dart';
 
-class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc(SignUpUser signUpUser) : super(SignupInitial()) {
+class SignUpBloc extends Bloc<SignupEvent, SignupState> {
+  SignUpBloc(SignUpUser signUpUser) : super(SignupInitial()) {
     on<SignupEvent>((event, emit) async {
       if (event is OnRegisterEvent) {
         emit(SignupLoading());

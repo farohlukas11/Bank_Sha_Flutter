@@ -2,7 +2,6 @@ import 'package:bank_sha/ui/pin/pin_page.dart';
 import 'package:bank_sha/ui/transfer/transfer_success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/theme.dart';
 import '../widgets/buttons.dart';

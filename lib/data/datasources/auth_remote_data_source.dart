@@ -35,8 +35,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['is_email_exist'];
-    } else if (response.statusCode == 400) {
-      throw jsonDecode(response.body)['errors'];
     } else {
       throw ServerException();
     }
@@ -53,8 +51,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromJson(
         jsonDecode(response.body),
       );
-    } else if (response.statusCode == 400) {
-      throw jsonDecode(response.body)['message'];
     } else {
       throw ServerException();
     }

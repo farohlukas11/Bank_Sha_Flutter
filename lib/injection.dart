@@ -1,10 +1,10 @@
-import 'package:bank_sha/common/shared_values.dart';
 import 'package:bank_sha/data/datasources/auth_remote_data_source.dart';
 import 'package:bank_sha/data/repositories/auth_repository_impl.dart';
 import 'package:bank_sha/domain/repositories/auth_repository.dart';
 import 'package:bank_sha/domain/usecase/check_email.dart';
 import 'package:bank_sha/domain/usecase/signin_user.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
+import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
 import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +15,8 @@ final locator = GetIt.instance;
 void init() {
   //bloc
   locator.registerFactory(() => CheckEmailBloc(locator()));
-  locator.registerFactory(() => SignupBloc(locator()));
+  locator.registerFactory(() => SignUpBloc(locator()));
+  locator.registerFactory(() => SignInBloc(locator()));
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));
