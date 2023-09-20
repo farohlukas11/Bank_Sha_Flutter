@@ -1,4 +1,5 @@
 import 'package:bank_sha/data/models/user_model.dart';
+import 'package:bank_sha/domain/usecase/set_token.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,7 +11,8 @@ part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignUpBloc extends Bloc<SignupEvent, SignupState> {
-  SignUpBloc(SignUpUser signUpUser) : super(SignupInitial()) {
+  SignUpBloc(SignUpUser signUpUser, SetToken setToken)
+      : super(SignupInitial()) {
     on<SignupEvent>((event, emit) async {
       if (event is OnRegisterEvent) {
         emit(SignupLoading());
@@ -21,9 +23,14 @@ class SignUpBloc extends Bloc<SignupEvent, SignupState> {
           (failure) => emit(
             SignupError(failure.message),
           ),
-          (data) => emit(
-            SignupHasData(data),
-          ),
+          (data) {
+            if (data.token != null) {
+              setToken.execute(data.token!);
+              emit(
+                SignupHasData(data),
+              );
+            }
+          },
         );
       }
     });

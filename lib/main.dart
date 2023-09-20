@@ -18,6 +18,7 @@ import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
 import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
 import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
+import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/topup/topup_success_page.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => di.locator<CheckEmailBloc>()),
         BlocProvider(create: (_) => di.locator<SignUpBloc>()),
-        BlocProvider(create: (_) => di.locator<SignInBloc>())
+        BlocProvider(create: (_) => di.locator<SignInBloc>()),
+        BlocProvider(create: (context) => di.locator<GetTokenBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

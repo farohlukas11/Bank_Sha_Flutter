@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bank_sha/common/exception.dart';
 import 'package:bank_sha/common/failure.dart';
-import 'package:bank_sha/data/datasources/auth_remote_data_source.dart';
+import 'package:bank_sha/data/source/datasources/auth_remote_data_source.dart';
 import 'package:bank_sha/data/models/signin_form_model.dart';
 import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/data/models/user_model.dart';

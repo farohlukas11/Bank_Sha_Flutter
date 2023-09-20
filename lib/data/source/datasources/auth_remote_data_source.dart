@@ -7,7 +7,7 @@ import 'package:bank_sha/data/models/signin_form_model.dart';
 import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/user_model.dart';
+import '../../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<bool> checkEmail(SignUpFormModel model);

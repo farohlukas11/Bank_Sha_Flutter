@@ -25,3 +25,7 @@ class DatabaseFailure extends Failure {
 class UnknownFailure extends Failure {
   UnknownFailure() : super('Unknown error occured');
 }
+
+class LocalFailure extends Failure {
+  LocalFailure({String message = localErrorMessage}) : super(message);
+}
