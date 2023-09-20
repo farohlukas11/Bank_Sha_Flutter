@@ -82,7 +82,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await client.post(
       Uri.parse('$baseUrl/logout'),
       headers: {
-        'Token': token,
+        'Authorization': 'Bearer $token',
       },
     );
 

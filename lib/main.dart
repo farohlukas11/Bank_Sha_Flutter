@@ -8,6 +8,7 @@ import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
+import 'package:bank_sha/ui/profile/bloc/logout_bloc.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';
 import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<CheckEmailBloc>()),
         BlocProvider(create: (_) => di.locator<SignUpBloc>()),
         BlocProvider(create: (_) => di.locator<SignInBloc>()),
-        BlocProvider(create: (context) => di.locator<GetTokenBloc>()),
+        BlocProvider(create: (_) => di.locator<GetTokenBloc>()),
+        BlocProvider(create: (_) => di.locator<LogoutBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

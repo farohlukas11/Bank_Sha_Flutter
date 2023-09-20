@@ -1,9 +1,13 @@
+import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
+import 'package:bank_sha/ui/profile/bloc/logout_bloc.dart';
 import 'package:bank_sha/ui/profilepin/profile_edit_pin_page.dart';
+import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   static const routeName = '/profile';
@@ -117,10 +121,29 @@ class ProfilePage extends StatelessWidget {
                   title: 'Help Center',
                   onPressed: () {},
                 ),
-                ProfileMenuItem(
-                  image: 'assets/ic_logout.png',
-                  title: 'Log Out',
-                  onPressed: () {},
+                BlocConsumer<LogoutBloc, LogoutState>(
+                  listener: (context, state) {
+                    if (state is LogoutError) {
+                      showCustomSnackBar(context, 'Gagal melakukan Logout!');
+                    } else if (state is LogoutSuccess) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, SignInPage.routeName, (route) => false);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is LogoutLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ProfileMenuItem(
+                      image: 'assets/ic_logout.png',
+                      title: 'Log Out',
+                      onPressed: () {
+                        context.read<LogoutBloc>().add(OnLogOutEvent());
+                      },
+                    );
+                  },
                 ),
               ],
             ),
