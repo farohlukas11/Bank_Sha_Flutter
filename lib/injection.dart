@@ -9,11 +9,14 @@ import 'package:bank_sha/domain/repositories/preferences_repository.dart';
 import 'package:bank_sha/domain/repositories/user_repository.dart';
 import 'package:bank_sha/domain/usecase/check_email.dart';
 import 'package:bank_sha/domain/usecase/get_token.dart';
+import 'package:bank_sha/domain/usecase/get_user.dart';
+import 'package:bank_sha/domain/usecase/get_user_by_id.dart';
 import 'package:bank_sha/domain/usecase/logout_user.dart';
 import 'package:bank_sha/domain/usecase/remove_token.dart';
 import 'package:bank_sha/domain/usecase/set_token.dart';
 import 'package:bank_sha/domain/usecase/signin_user.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/profile/bloc/logout_bloc.dart';
 import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
@@ -32,6 +35,7 @@ void init() {
   locator.registerFactory(() => SignInBloc(locator(), locator()));
   locator.registerFactory(() => GetTokenBloc(locator()));
   locator.registerFactory(() => LogoutBloc(locator(), locator(), locator()));
+  locator.registerFactory(() => GetUserBloc(locator(), locator()));
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));
@@ -41,6 +45,8 @@ void init() {
   locator.registerLazySingleton(() => SetToken(locator()));
   locator.registerLazySingleton(() => RemoveToken(locator()));
   locator.registerLazySingleton(() => LogoutUser(locator()));
+  locator.registerLazySingleton(() => GetUser(locator()));
+  locator.registerLazySingleton(() => GetUserById(locator()));
 
   //repository
   locator.registerLazySingleton<AuthRepository>(

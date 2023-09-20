@@ -5,6 +5,7 @@ import 'package:bank_sha/ui/datapackage/data_package_success_page.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<SignInBloc>()),
         BlocProvider(create: (_) => di.locator<GetTokenBloc>()),
         BlocProvider(create: (_) => di.locator<LogoutBloc>()),
+        BlocProvider(create: (_) => di.locator<GetUserBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

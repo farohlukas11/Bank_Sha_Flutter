@@ -1,6 +1,7 @@
 import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/transfer/transfer_page.dart';
@@ -9,6 +10,7 @@ import 'package:bank_sha/ui/widgets/home_services_item.dart';
 import 'package:bank_sha/ui/widgets/home_tips_item.dart';
 import 'package:bank_sha/ui/widgets/home_transaction_latest_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -22,6 +24,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<GetUserBloc>(context).add(OnGetUserEvent());
+
     return Scaffold(
       backgroundColor: lightBackgroundColor,
       body: ListView(
@@ -107,117 +111,157 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildProfile(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Howdy,',
-                style: greyTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: regular,
-                ),
-              ),
-              Text(
-                'shaynahan',
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-                  fontWeight: semiBold,
-                ),
-              )
-            ],
-          ),
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, ProfilePage.routeName),
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/img_profile.png',
-                  ),
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: whiteColor,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check_circle,
-                      color: greenColor,
-                      size: 14,
+    return BlocBuilder<GetUserBloc, GetUserState>(
+      builder: (context, state) {
+        if (state is GetUserHasData) {
+          var data = state.model;
+
+          return Container(
+            margin: const EdgeInsets.only(top: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Howdy,',
+                      style: greyTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: regular,
+                      ),
                     ),
+                    Text(
+                      data.username ?? '',
+                      style: blackTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                    )
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, ProfilePage.routeName),
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          data.profilePicture ?? '',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: data.verified == 1
+                        ? Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: whiteColor,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check_circle,
+                                  color: greenColor,
+                                  size: 14,
+                                ),
+                              ),
+                            ),
+                          )
+                        : null,
                   ),
                 ),
+              ],
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'Kesalahan memuat Profile User!',
+              style: blackTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: semiBold,
               ),
             ),
-          )
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 
   Widget buildWalletCard() {
-    return Container(
-      height: 220,
-      margin: const EdgeInsets.only(top: 30),
-      padding: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        image: const DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/img_bg_card.png'),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Shayna Hanna',
-            style: whiteTextStyle.copyWith(
-              fontWeight: medium,
-              fontSize: 18,
+    return BlocBuilder<GetUserBloc, GetUserState>(
+      builder: (context, state) {
+        if (state is GetUserHasData) {
+          var data = state.model;
+
+          return Container(
+            height: 220,
+            margin: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/img_bg_card.png'),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 28,
-          ),
-          Text(
-            '**** **** **** 1280',
-            style: whiteTextStyle.copyWith(
-              fontWeight: medium,
-              fontSize: 18,
-              letterSpacing: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  data.name ?? '',
+                  style: whiteTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 28,
+                ),
+                Text(
+                  '**** **** **** ${data.cardNumber?.substring(data.cardNumber!.length - 4)}',
+                  style: whiteTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 18,
+                    letterSpacing: 4,
+                  ),
+                ),
+                const SizedBox(
+                  height: 21,
+                ),
+                Text(
+                  'Balance',
+                  style: whiteTextStyle,
+                ),
+                Text(
+                  formatCurrency(data.balance ?? 0),
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 24,
+                    fontWeight: semiBold,
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 21,
-          ),
-          Text(
-            'Balance',
-            style: whiteTextStyle,
-          ),
-          Text(
-            formatCurrency(12500),
-            style: whiteTextStyle.copyWith(
-              fontSize: 24,
-              fontWeight: semiBold,
+          );
+        } else {
+          return Center(
+            child: Text(
+              'Kesalahan memuat Profile User!',
+              style: blackTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: semiBold,
+              ),
             ),
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 

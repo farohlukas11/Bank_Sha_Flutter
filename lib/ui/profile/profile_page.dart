@@ -9,6 +9,8 @@ import 'package:bank_sha/ui/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../home/bloc/get_user_bloc.dart';
+
 class ProfilePage extends StatelessWidget {
   static const routeName = '/profile';
 
@@ -16,6 +18,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<GetUserBloc>(context).add(OnGetUserEvent());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -45,45 +49,70 @@ class ProfilePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/img_profile.png',
-                      ),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      width: 27,
-                      height: 27,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: whiteColor,
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.check_circle,
-                          color: greenColor,
-                          size: 24,
+                BlocBuilder<GetUserBloc, GetUserState>(
+                  builder: (context, state) {
+                    if (state is GetUserHasData) {
+                      var data = state.model;
+
+                      return Column(
+                        children: [
+                          Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  data.profilePicture ?? '',
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: data.verified == 1
+                                ? Align(
+                                    alignment: Alignment.topRight,
+                                    child: Container(
+                                      width: 27,
+                                      height: 27,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: whiteColor,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          color: greenColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            data.name ?? '',
+                            style: blackTextStyle.copyWith(
+                              fontSize: 18,
+                              fontWeight: medium,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          'Kesalahan memuat Profile User!',
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  'Shayna Hanna',
-                  style: blackTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: medium,
-                  ),
+                      );
+                    }
+                  },
                 ),
                 ProfileMenuItem(
                   image: 'assets/ic_edit_profile.png',
