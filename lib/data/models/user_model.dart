@@ -10,8 +10,8 @@ class UserModel extends Equatable {
   final int? verified;
   final String? profilePicture;
   final String? ktp;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
   final int? balance;
   final String? cardNumber;
   final String? pin;
@@ -20,23 +20,23 @@ class UserModel extends Equatable {
   final String? tokenType;
 
   UserModel({
-     this.id,
-     this.name,
-     this.email,
-     this.username,
+    this.id,
+    this.name,
+    this.email,
+    this.username,
     this.password,
-     this.emailVerifiedAt,
-     this.verified,
-     this.profilePicture,
-     this.ktp,
-     this.createdAt,
-     this.updatedAt,
-     this.balance,
-     this.cardNumber,
-     this.pin,
-     this.token,
-     this.tokenExpiresIn,
-     this.tokenType,
+    this.emailVerifiedAt,
+    this.verified,
+    this.profilePicture,
+    this.ktp,
+    this.createdAt,
+    this.updatedAt,
+    this.balance,
+    this.cardNumber,
+    this.pin,
+    this.token,
+    this.tokenExpiresIn,
+    this.tokenType,
   });
 
   UserModel copyWith({
@@ -49,8 +49,8 @@ class UserModel extends Equatable {
     int? verified,
     String? profilePicture,
     String? ktp,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    String? createdAt,
+    String? updatedAt,
     int? balance,
     String? cardNumber,
     String? pin,
@@ -87,8 +87,8 @@ class UserModel extends Equatable {
         verified: json["verified"],
         profilePicture: json["profile_picture"],
         ktp: json["ktp"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         balance: json["balance"],
         cardNumber: json["card_number"],
         pin: json["pin"],
@@ -106,8 +106,8 @@ class UserModel extends Equatable {
         "verified": verified,
         "profile_picture": profilePicture,
         "ktp": ktp,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "balance": balance,
         "card_number": cardNumber,
         "pin": pin,

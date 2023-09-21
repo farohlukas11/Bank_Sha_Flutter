@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 abstract class UserRemoteDataSource {
   Future<UserModel> getUser(String token);
 
-  Future<List<UserModel>?> getUserByUsername(String token, String username);
+  Future<List<UserModel?>> getUserByUsername(String token, String username);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -36,7 +36,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<List<UserModel>?> getUserByUsername(
+  Future<List<UserModel?>> getUserByUsername(
     String token,
     String username,
   ) async {
@@ -48,12 +48,19 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      var listUser = jsonDecode(response.body);
-      return (listUser as List)
+      List<dynamic> list = jsonDecode(response.body);
+      return list
           .map(
             (e) => UserModel.fromJson(e),
           )
           .toList();
+      // List<UserModel?> listUser = [];
+      //
+      //
+      // listUser.addAll(List<UserModel>.from(json.decode(response.body))
+      //     .map((e) => UserModel.fromJson(e)));
+      //
+      // return listUser;
     } else {
       throw ServerException();
     }

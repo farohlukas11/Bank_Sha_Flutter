@@ -25,6 +25,8 @@ import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/topup/topup_success_page.dart';
 import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
+import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
+import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
 import 'package:bank_sha/ui/transfer/transfer_page.dart';
 import 'package:bank_sha/ui/transfer/transfer_success_page.dart';
 import 'package:bank_sha/ui/transferamount/transfer_amount_page.dart';
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<GetTokenBloc>()),
         BlocProvider(create: (_) => di.locator<LogoutBloc>()),
         BlocProvider(create: (_) => di.locator<GetUserBloc>()),
+        BlocProvider(create: (_) => di.locator<SearchUserBloc>()),
+        BlocProvider(create: (_) => di.locator<TextFieldBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

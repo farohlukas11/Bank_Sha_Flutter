@@ -21,8 +21,7 @@ class ResultUserItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height: 171,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: whiteColor,
@@ -40,9 +39,10 @@ class ResultUserItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(
+                image: NetworkImage(
                   imageUrl,
                 ),
+                fit: BoxFit.cover,
               ),
             ),
             child: isVerified
@@ -75,6 +75,8 @@ class ResultUserItem extends StatelessWidget {
               fontSize: 16,
               fontWeight: medium,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(
             height: 2,
@@ -82,6 +84,8 @@ class ResultUserItem extends StatelessWidget {
           Text(
             '@$username',
             style: greyTextStyle.copyWith(fontSize: 12),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

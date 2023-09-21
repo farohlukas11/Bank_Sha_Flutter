@@ -8,7 +8,7 @@ class GetUserById {
 
   GetUserById(this.repository);
 
-  Future<Either<Failure, List<UserModel>?>> execute(
+  Future<Either<Failure, List<UserModel?>>> execute(
     String token,
     String username,
   ) {

@@ -22,6 +22,8 @@ import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
 import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
 import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
+import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
+import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -36,6 +38,8 @@ void init() {
   locator.registerFactory(() => GetTokenBloc(locator()));
   locator.registerFactory(() => LogoutBloc(locator(), locator(), locator()));
   locator.registerFactory(() => GetUserBloc(locator(), locator()));
+  locator.registerFactory(() => SearchUserBloc(locator(), locator()));
+  locator.registerFactory(() => TextFieldBloc());
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));

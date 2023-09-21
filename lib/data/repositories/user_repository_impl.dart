@@ -26,7 +26,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, List<UserModel>?>> getUserByUsername(
+  Future<Either<Failure, List<UserModel?>>> getUserByUsername(
     String token,
     String username,
   ) async {

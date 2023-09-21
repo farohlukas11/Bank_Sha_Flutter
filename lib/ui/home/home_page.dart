@@ -3,6 +3,7 @@ import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
+import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/transfer/transfer_page.dart';
 import 'package:bank_sha/ui/widgets/home_send_again_item.dart';
