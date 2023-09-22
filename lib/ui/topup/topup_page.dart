@@ -1,8 +1,10 @@
 import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/topup_bank_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopUpPage extends StatelessWidget {
   static const routeName = '/top-up';
@@ -98,29 +100,37 @@ class TopUpPage extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '8008 2208 1996',
-                    textAlign: TextAlign.start,
-                    style: blackTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: medium,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    'Angga Risky',
-                    textAlign: TextAlign.start,
-                    style: greyTextStyle.copyWith(
-                      fontSize: 12,
-                      fontWeight: regular,
-                    ),
-                  ),
-                ],
+              BlocBuilder<GetUserBloc, GetUserState>(
+                builder: (context, state) {
+                  if (state is GetUserHasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          state.model.cardNumber ?? '',
+                          textAlign: TextAlign.start,
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          state.model.name ?? '',
+                          textAlign: TextAlign.start,
+                          style: greyTextStyle.copyWith(
+                            fontSize: 12,
+                            fontWeight: regular,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
               ),
             ],
           ),

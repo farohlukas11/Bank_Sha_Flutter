@@ -30,6 +30,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       return UserModel.fromJson(
         jsonDecode(response.body),
       );
+    } else if (response.statusCode == 401) {
+      throw Exception401();
     } else {
       throw ServerException();
     }
@@ -54,13 +56,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
             (e) => UserModel.fromJson(e),
           )
           .toList();
-      // List<UserModel?> listUser = [];
-      //
-      //
-      // listUser.addAll(List<UserModel>.from(json.decode(response.body))
-      //     .map((e) => UserModel.fromJson(e)));
-      //
-      // return listUser;
     } else {
       throw ServerException();
     }

@@ -29,3 +29,7 @@ class UnknownFailure extends Failure {
 class LocalFailure extends Failure {
   LocalFailure({String message = localErrorMessage}) : super(message);
 }
+
+class Failure401 extends Failure {
+  Failure401() : super('');
+}

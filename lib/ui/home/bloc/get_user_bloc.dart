@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bank_sha/common/failure.dart';
 import 'package:bank_sha/data/models/user_model.dart';
 import 'package:bank_sha/domain/usecase/get_token.dart';
 import 'package:bank_sha/domain/usecase/get_user.dart';
@@ -27,7 +28,13 @@ class GetUserBloc extends Bloc<GetUserEvent, GetUserState> {
     var result = await getUser.execute(token);
 
     result.fold(
-      (error) => emit(GetUserError()),
+      (error) {
+        if (error is Failure401) {
+          emit(GetUserError401());
+        } else {
+          emit(GetUserError());
+        }
+      },
       (model) => emit(GetUserHasData(model)),
     );
   }

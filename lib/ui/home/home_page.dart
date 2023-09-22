@@ -2,6 +2,7 @@ import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
+import 'package:bank_sha/ui/home/bloc/remove_token_bloc.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
 import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
@@ -11,6 +12,7 @@ import 'package:bank_sha/ui/widgets/home_services_item.dart';
 import 'package:bank_sha/ui/widgets/home_tips_item.dart';
 import 'package:bank_sha/ui/widgets/home_transaction_latest_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -181,16 +183,19 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           );
+        } else if (state is GetUserError401) {
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            context.read<RemoveTokenBloc>().add(OnRemoveTokenEvent());
+
+            Navigator.pushNamedAndRemoveUntil(
+                context, SignInPage.routeName, (route) => false);
+
+            showCustomSnackBar(
+                context, 'Token sudah hangus, silahkan Login kembali!');
+          });
+          return const SizedBox();
         } else {
-          return Center(
-            child: Text(
-              'Kesalahan memuat Profile User!',
-              style: blackTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: semiBold,
-              ),
-            ),
-          );
+          return const SizedBox();
         }
       },
     );

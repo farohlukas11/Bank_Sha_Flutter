@@ -1,7 +1,10 @@
 import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PinPage extends StatefulWidget {
   static const routeName = '/pin';
@@ -20,15 +23,6 @@ class _PinPageState extends State<PinPage> {
       setState(() {
         pinController.text = pinController.text + number;
       });
-    }
-
-    if (pinController.text.length == 6) {
-      if (pinController.text == '123123') {
-        Navigator.pop(context, true);
-      } else {
-        showCustomSnackBar(
-            context, 'PIN yang anda masukkan salah. Silakan coba lagi.');
-      }
     }
   }
 
@@ -67,24 +61,43 @@ class _PinPageState extends State<PinPage> {
                 ),
                 SizedBox(
                   width: 200,
-                  child: TextFormField(
-                    controller: pinController,
-                    obscureText: true,
-                    cursorColor: greyColor,
-                    obscuringCharacter: '*',
-                    enabled: false,
-                    style: whiteTextStyle.copyWith(
-                      fontSize: 36,
-                      fontWeight: medium,
-                      letterSpacing: 16,
-                    ),
-                    decoration: InputDecoration(
-                      disabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: greyColor,
+                  child: BlocBuilder<GetUserBloc, GetUserState>(
+                    builder: (context, state) {
+                      if (state is GetUserHasData) {
+                        String pinUser = state.model.pin ?? '';
+
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          if (pinController.text.length == 6) {
+                            if (pinController.text == pinUser) {
+                              Navigator.pop(context, true);
+                            } else {
+                              showCustomSnackBar(context,
+                                  'PIN yang anda masukkan salah. Silakan coba lagi.');
+                            }
+                          }
+                        });
+                      }
+
+                      return TextFormField(
+                        controller: pinController,
+                        obscureText: true,
+                        cursorColor: greyColor,
+                        obscuringCharacter: '*',
+                        enabled: false,
+                        style: whiteTextStyle.copyWith(
+                          fontSize: 36,
+                          fontWeight: medium,
+                          letterSpacing: 16,
                         ),
-                      ),
-                    ),
+                        decoration: InputDecoration(
+                          disabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: greyColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(

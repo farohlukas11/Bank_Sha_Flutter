@@ -22,6 +22,8 @@ class UserRepositoryImpl implements UserRepository {
       return Left(ServerFailure());
     } on SocketException {
       return Left(ConnectionFailure());
+    } on Exception401 {
+      return Left(Failure401());
     }
   }
 

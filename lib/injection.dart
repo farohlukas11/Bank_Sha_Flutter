@@ -17,6 +17,7 @@ import 'package:bank_sha/domain/usecase/set_token.dart';
 import 'package:bank_sha/domain/usecase/signin_user.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
+import 'package:bank_sha/ui/home/bloc/remove_token_bloc.dart';
 import 'package:bank_sha/ui/profile/bloc/logout_bloc.dart';
 import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
@@ -40,6 +41,7 @@ void init() {
   locator.registerFactory(() => GetUserBloc(locator(), locator()));
   locator.registerFactory(() => SearchUserBloc(locator(), locator()));
   locator.registerFactory(() => TextFieldBloc());
+  locator.registerFactory(() => RemoveTokenBloc(locator()));
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));

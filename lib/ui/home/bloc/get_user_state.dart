@@ -22,3 +22,8 @@ class GetUserError extends GetUserState {
   @override
   List<Object?> get props => [];
 }
+
+class GetUserError401 extends GetUserState {
+  @override
+  List<Object?> get props => [];
+}

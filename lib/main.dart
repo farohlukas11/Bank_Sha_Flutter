@@ -6,6 +6,7 @@ import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
+import 'package:bank_sha/ui/home/bloc/remove_token_bloc.dart';
 import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<GetUserBloc>()),
         BlocProvider(create: (_) => di.locator<SearchUserBloc>()),
         BlocProvider(create: (_) => di.locator<TextFieldBloc>()),
+        BlocProvider(create: (_) => di.locator<RemoveTokenBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

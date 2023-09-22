@@ -60,6 +60,7 @@ class _DataPackagePageState extends State<DataPackagePage> {
           ),
           TextFormField(
             onChanged: (value) {},
+            keyboardType: TextInputType.number,
             style: blackTextStyle.copyWith(
               fontWeight: medium,
             ),
