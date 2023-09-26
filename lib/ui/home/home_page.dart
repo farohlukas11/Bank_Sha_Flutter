@@ -14,6 +14,7 @@ import 'package:bank_sha/ui/widgets/home_transaction_latest_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -257,15 +258,7 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         } else {
-          return Center(
-            child: Text(
-              'Kesalahan memuat Profile User!',
-              style: blackTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: semiBold,
-              ),
-            ),
-          );
+          return const SizedBox();
         }
       },
     );
@@ -352,9 +345,20 @@ class _HomePageState extends State<HomePage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TransferPage.routeName),
               ),
-              const HomeServiceItem(
-                itemAssets: 'assets/ic_withdraw.png',
-                title: 'Withdraw',
+              BlocBuilder<GetUserBloc, GetUserState>(
+                builder: (context, state) {
+                  String urlKtp = '';
+                  if (state is GetUserHasData) {
+                    urlKtp = state.model.ktp ?? '';
+                  }
+                  return HomeServiceItem(
+                    itemAssets: 'assets/ic_withdraw.png',
+                    title: 'Withdraw',
+                    onTap: () async {
+                      launchUrl(Uri.parse(urlKtp));
+                    },
+                  );
+                },
               ),
               HomeServiceItem(
                 itemAssets: 'assets/ic_more.png',

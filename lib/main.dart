@@ -1,5 +1,6 @@
 import 'package:bank_sha/common/theme.dart';
 import 'package:bank_sha/data/models/signup_form_model.dart';
+import 'package:bank_sha/data/models/topup_form_model.dart';
 import 'package:bank_sha/ui/datapackage/data_package_page.dart';
 import 'package:bank_sha/ui/datapackage/data_package_success_page.dart';
 import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
@@ -23,9 +24,11 @@ import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
+import 'package:bank_sha/ui/topup/bloc/payment_method_bloc.dart';
+import 'package:bank_sha/ui/topup/bloc/topup_method_bloc.dart';
 import 'package:bank_sha/ui/topup/topup_page.dart';
 import 'package:bank_sha/ui/topup/topup_success_page.dart';
-import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
+import 'package:bank_sha/ui/topup/topup_amount_page.dart';
 import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
 import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
 import 'package:bank_sha/ui/transfer/transfer_page.dart';
@@ -56,6 +59,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<SearchUserBloc>()),
         BlocProvider(create: (_) => di.locator<TextFieldBloc>()),
         BlocProvider(create: (_) => di.locator<RemoveTokenBloc>()),
+        BlocProvider(create: (_) => di.locator<PaymentMethodBloc>()),
+        BlocProvider(create: (_) => di.locator<TopupMethodBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -124,8 +129,9 @@ class MyApp extends StatelessWidget {
                 builder: (_) => const ProfilePage(),
               );
             case PinPage.routeName:
+              final String nextRoute = settings.arguments as String;
               return MaterialPageRoute(
-                builder: (_) => const PinPage(),
+                builder: (_) => PinPage(nextRoute: nextRoute),
               );
             case EditProfilePage.routeName:
               return MaterialPageRoute(
@@ -144,8 +150,9 @@ class MyApp extends StatelessWidget {
                 builder: (_) => const TopUpPage(),
               );
             case TopUpAmountPage.routeName:
+              final TopUpFormModel model = settings.arguments as TopUpFormModel;
               return MaterialPageRoute(
-                builder: (_) => const TopUpAmountPage(),
+                builder: (_) => TopUpAmountPage(data: model),
               );
             case TopUpSuccessPage.routeName:
               return MaterialPageRoute(

@@ -233,12 +233,15 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
                 ),
                 CustomFilledButton(
                   title: 'Continue',
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, PinPage.routeName) ==
-                        true) {
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          TransferSuccessPage.routeName, (route) => false);
-                    }
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PinPage(
+                          nextRoute: TransferSuccessPage.routeName,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(

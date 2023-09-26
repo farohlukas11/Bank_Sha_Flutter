@@ -1,4 +1,5 @@
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
+import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/theme.dart';
@@ -18,9 +19,8 @@ class ProfileEditPinPage extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios,
           ),
-          onPressed: () => Navigator.pop(
-            context,
-          ),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context, HomePage.routeName, (route) => false),
         ),
         title: const Text(
           'Edit PIN',

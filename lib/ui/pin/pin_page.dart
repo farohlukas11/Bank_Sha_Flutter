@@ -9,7 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PinPage extends StatefulWidget {
   static const routeName = '/pin';
 
-  const PinPage({super.key});
+  final String nextRoute;
+
+  const PinPage({
+    super.key,
+    required this.nextRoute,
+  });
 
   @override
   State<PinPage> createState() => _PinPageState();
@@ -69,7 +74,8 @@ class _PinPageState extends State<PinPage> {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
                           if (pinController.text.length == 6) {
                             if (pinController.text == pinUser) {
-                              Navigator.pop(context, true);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, widget.nextRoute, (route) => false);
                             } else {
                               showCustomSnackBar(context,
                                   'PIN yang anda masukkan salah. Silakan coba lagi.');

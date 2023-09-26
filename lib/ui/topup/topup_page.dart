@@ -1,18 +1,30 @@
 import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/data/models/bank_model.dart';
+import 'package:bank_sha/data/models/topup_form_model.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
-import 'package:bank_sha/ui/topupamount/topup_amount_page.dart';
+import 'package:bank_sha/ui/topup/bloc/payment_method_bloc.dart';
+import 'package:bank_sha/ui/topup/topup_amount_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/topup_bank_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TopUpPage extends StatelessWidget {
+class TopUpPage extends StatefulWidget {
   static const routeName = '/top-up';
 
   const TopUpPage({super.key});
 
   @override
+  State<TopUpPage> createState() => _TopUpPageState();
+}
+
+class _TopUpPageState extends State<TopUpPage> {
+  BankModel? _selectedBankModel;
+
+  @override
   Widget build(BuildContext context) {
+    BlocProvider.of<PaymentMethodBloc>(context).add(OnPaymentMethodEvent());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -107,7 +119,10 @@ class TopUpPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          state.model.cardNumber ?? '',
+                          state.model.cardNumber!.replaceAllMapped(
+                            RegExp(r".{4}"),
+                            (match) => "${match.group(0)} ",
+                          ),
                           textAlign: TextAlign.start,
                           style: blackTextStyle.copyWith(
                             fontSize: 16,
@@ -155,38 +170,63 @@ class TopUpPage extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          TopUpBankItem(
-            image: 'assets/img_bank_bca.png',
-            name: 'BANK BCA',
-            isSelected: true,
-            onTap: () {},
-          ),
-          TopUpBankItem(
-            image: 'assets/img_bank_bni.png',
-            name: 'Bank BNI',
-            onTap: () {},
-          ),
-          TopUpBankItem(
-            image: 'assets/img_bank_mandiri.png',
-            name: 'BANK MANDIRI',
-            onTap: () {},
-          ),
-          TopUpBankItem(
-            image: 'assets/img_bank_ocbc.png',
-            name: 'BANK OCBC',
-            onTap: () {},
+          BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+            builder: (context, state) {
+              if (state is PaymentMethodHasData) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: state.listModel.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => TopUpBankItem(
+                    image: state.listModel[index].thumbnail ?? '',
+                    name: state.listModel[index].name ?? '',
+                    time: state.listModel[index].time ?? '',
+                    onTap: () {
+                      setState(() {
+                        _selectedBankModel = state.listModel[index];
+                      });
+                    },
+                    isSelected:
+                        state.listModel[index].id == _selectedBankModel?.id,
+                  ),
+                );
+              } else if (state is PaymentMethodError) {
+                return Text(
+                  'Tidak ada Data!',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: semiBold,
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(
               top: 12,
               bottom: 30,
             ),
-            child: CustomFilledButton(
-              title: 'Continue',
-              onPressed: () {
-                Navigator.pushNamed(context, TopUpAmountPage.routeName);
-              },
-            ),
+            child: _selectedBankModel != null
+                ? CustomFilledButton(
+                    title: 'Continue',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TopUpAmountPage(
+                            data: TopUpFormModel(
+                                paymentMethodCode: _selectedBankModel?.code),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : const SizedBox(),
           ),
         ],
       ),

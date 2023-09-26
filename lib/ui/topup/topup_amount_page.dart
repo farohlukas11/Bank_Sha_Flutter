@@ -1,6 +1,13 @@
+import 'dart:math';
+
+import 'package:bank_sha/data/models/signup_form_model.dart';
+import 'package:bank_sha/data/models/topup_form_model.dart';
+import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/pin/pin_page.dart';
+import 'package:bank_sha/ui/topup/bloc/topup_method_bloc.dart';
 import 'package:bank_sha/ui/topup/topup_success_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +17,9 @@ import '../widgets/buttons.dart';
 class TopUpAmountPage extends StatefulWidget {
   static const routeName = '/top-up-amount';
 
-  const TopUpAmountPage({super.key});
+  final TopUpFormModel data;
+
+  const TopUpAmountPage({super.key, required this.data});
 
   @override
   State<TopUpAmountPage> createState() => _TopUpAmountPageState();
@@ -65,6 +74,8 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.data.paymentMethodCode.toString());
+
     return Scaffold(
       backgroundColor: darkBackgroundColor,
       body: ListView(
@@ -232,16 +243,41 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                CustomFilledButton(
-                  title: 'Checkout Now',
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, PinPage.routeName) ==
-                        true) {
-                      await launchUrl(Uri.parse('https://demo.midtrans.com/'));
-
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          TopUpSuccessPage.routeName, (route) => false);
+                BlocBuilder<GetUserBloc, GetUserState>(
+                  builder: (context, state) {
+                    late String pin;
+                    if (state is GetUserHasData) {
+                      pin = state.model.pin ?? '';
                     }
+                    return CustomFilledButton(
+                      title: 'Checkout Now',
+                      onPressed: () {
+                        context.read<TopupMethodBloc>().add(
+                              OnSetTopUpFormModelEvent(
+                                widget.data.copyWith(
+                                  pin: pin,
+                                  amount:
+                                      amountController.text.replaceAll('.', ''),
+                                ),
+                              ),
+                            );
+                        debugPrint(widget.data
+                            .copyWith(
+                                pin: pin,
+                                amount:
+                                    amountController.text.replaceAll('.', ''))
+                            .amount);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PinPage(
+                              nextRoute: TopUpSuccessPage.routeName,
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
                 const SizedBox(

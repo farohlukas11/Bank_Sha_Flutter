@@ -5,6 +5,8 @@ import '../../common/theme.dart';
 class TopUpBankItem extends StatelessWidget {
   final String image;
   final String name;
+
+  final String time;
   final VoidCallback? onTap;
   final bool isSelected;
 
@@ -14,6 +16,7 @@ class TopUpBankItem extends StatelessWidget {
     required this.name,
     this.onTap,
     this.isSelected = false,
+    required this.time,
   });
 
   @override
@@ -39,7 +42,7 @@ class TopUpBankItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
+            Image.network(
               image,
               height: 30,
             ),
@@ -59,7 +62,7 @@ class TopUpBankItem extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '50 mins',
+                  time,
                   style: greyTextStyle.copyWith(
                     fontSize: 12,
                   ),

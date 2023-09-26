@@ -117,22 +117,27 @@ class ProfilePage extends StatelessWidget {
                 ProfileMenuItem(
                   image: 'assets/ic_edit_profile.png',
                   title: 'Edit Profile',
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, PinPage.routeName) ==
-                        true) {
-                      Navigator.pushNamed(context, EditProfilePage.routeName);
-                    }
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const PinPage(nextRoute: EditProfilePage.routeName),
+                      ),
+                    );
                   },
                 ),
                 ProfileMenuItem(
                   image: 'assets/ic_pin.png',
                   title: 'My PIN',
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, PinPage.routeName) ==
-                        true) {
-                      Navigator.pushNamed(
-                          context, ProfileEditPinPage.routeName);
-                    }
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PinPage(
+                            nextRoute: ProfileEditPinPage.routeName),
+                      ),
+                    );
                   },
                 ),
                 ProfileMenuItem(
