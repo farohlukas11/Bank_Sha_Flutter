@@ -3,8 +3,11 @@ import 'package:dartz/dartz.dart';
 
 import '../../data/models/user_model.dart';
 
-abstract class UserRepository{
+abstract class UserRepository {
   Future<Either<Failure, UserModel>> getUser(String token);
 
-  Future<Either<Failure, List<UserModel?>>> getUserByUsername(String token, String username);
+  Future<Either<Failure, List<UserModel?>>> getUserByUsername(
+      String token, String username);
+
+  Future<Either<Failure, List<UserModel?>>> getTransferHistories(String token);
 }

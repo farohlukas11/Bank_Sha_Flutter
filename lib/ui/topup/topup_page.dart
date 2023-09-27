@@ -48,6 +48,26 @@ class _TopUpPageState extends State<TopUpPage> {
           buildSelectBank(context),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(24),
+        child: _selectedBankModel != null
+            ? CustomFilledButton(
+                title: 'Continue',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TopUpAmountPage(
+                        data: TopUpFormModel(
+                            paymentMethodCode: _selectedBankModel?.code),
+                      ),
+                    ),
+                  );
+                },
+              )
+            : const SizedBox(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -205,28 +225,6 @@ class _TopUpPageState extends State<TopUpPage> {
                 );
               }
             },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 12,
-              bottom: 30,
-            ),
-            child: _selectedBankModel != null
-                ? CustomFilledButton(
-                    title: 'Continue',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TopUpAmountPage(
-                            data: TopUpFormModel(
-                                paymentMethodCode: _selectedBankModel?.code),
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : const SizedBox(),
           ),
         ],
       ),

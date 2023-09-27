@@ -8,7 +8,7 @@ import '../../../data/models/signup_form_model.dart';
 
 part 'signup_event.dart';
 
-part 'signup_state.dart';
+part '../../signup/bloc/signup_state.dart';
 
 class SignUpBloc extends Bloc<SignupEvent, SignupState> {
   SignUpBloc(SignUpUser signUpUser, SetToken setToken)

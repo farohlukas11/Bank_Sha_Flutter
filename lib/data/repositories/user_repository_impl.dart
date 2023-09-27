@@ -42,4 +42,17 @@ class UserRepositoryImpl implements UserRepository {
       return Left(ConnectionFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<UserModel?>>> getTransferHistories(
+      String token) async {
+    try {
+      final result = await userRemoteDataSource.getTransferHistories(token);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on SocketException {
+      return Left(ConnectionFailure());
+    }
+  }
 }

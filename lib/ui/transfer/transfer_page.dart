@@ -1,7 +1,9 @@
 import 'package:bank_sha/common/theme.dart';
+import 'package:bank_sha/data/models/user_model.dart';
 import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
 import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
-import 'package:bank_sha/ui/transferamount/transfer_amount_page.dart';
+import 'package:bank_sha/ui/transfer/bloc/transfer_histories_bloc.dart';
+import 'package:bank_sha/ui/transfer/transfer_amount_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/recent_user_item.dart';
 import 'package:bank_sha/ui/widgets/result_user_item.dart';
@@ -20,6 +22,7 @@ class TransferPage extends StatefulWidget {
 }
 
 class _TransferPageState extends State<TransferPage> {
+  UserModel? _selectedUser;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,18 @@ class _TransferPageState extends State<TransferPage> {
           ),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(24),
+        child: _selectedUser != null
+            ? CustomFilledButton(
+                title: 'Continue',
+                onPressed: () {
+                  Navigator.pushNamed(context, TransferAmountPage.routeName);
+                },
+              )
+            : const SizedBox(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -76,10 +91,14 @@ class _TransferPageState extends State<TransferPage> {
               return TextFormField(
                 initialValue: state.value,
                 onChanged: (value) {
-                  context.read<TextFieldBloc>().add(OnValueChangedEvent(value));
                   context
                       .read<SearchUserBloc>()
                       .add(OnSearchUserEvent(state.value));
+                  context.read<TextFieldBloc>().add(OnValueChangedEvent(value));
+
+                  setState(() {
+                    _selectedUser = null;
+                  });
                 },
                 style: blackTextStyle.copyWith(
                   fontWeight: medium,
@@ -129,21 +148,43 @@ class _TransferPageState extends State<TransferPage> {
           const SizedBox(
             height: 14,
           ),
-          const RecentUserItem(
-            imageUrl: 'assets/img_photo1.png',
-            name: 'Yonna Jie',
-            username: 'yoenna',
-            isVerified: true,
-          ),
-          const RecentUserItem(
-            imageUrl: 'assets/img_photo3.png',
-            name: 'John Hi',
-            username: 'jhi',
-          ),
-          const RecentUserItem(
-            imageUrl: 'assets/img_phot4.png',
-            name: 'Masayoshi',
-            username: 'form',
+          BlocBuilder<TransferHistoriesBloc, TransferHistoriesState>(
+            builder: (context, state) {
+              if (state is TransferHistoriesHasData) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: state.listModel.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => RecentUserItem(
+                    imageUrl: state.listModel[index].profilePicture ?? '',
+                    name: state.listModel[index].name ?? '',
+                    username: state.listModel[index].username ?? '',
+                    isVerified: state.listModel[index].verified == 1,
+                    onTap: () {
+                      setState(() {
+                        _selectedUser = state.listModel[index];
+                      });
+                    },
+                    onSelected: _selectedUser?.id == state.listModel[index].id,
+                  ),
+                );
+              } else if (state is TransferHistoriesHasEmpty) {
+                return Text(
+                  'Tidak ada Data!',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: semiBold,
+                  ),
+                );
+              } else if (state is TransferHistoriesError) {
+                showCustomSnackBar(context, state.message);
+
+                return const SizedBox();
+              } else {
+                return const SizedBox();
+              }
+            },
           ),
         ],
       ),
@@ -185,6 +226,14 @@ class _TransferPageState extends State<TransferPage> {
                       name: listUser[index].name ?? '',
                       username: listUser[index].username ?? '',
                       isVerified: listUser[index].verified == 1 ? true : false,
+                      onTap: () {
+                        setState(() {
+                          _selectedUser = listUser[index];
+
+                          debugPrint(_selectedUser?.toJson().toString());
+                        });
+                      },
+                      onSelected: listUser[index].id == _selectedUser?.id,
                     ),
                   ),
                 );
@@ -216,19 +265,8 @@ class _TransferPageState extends State<TransferPage> {
             },
           ),
           const SizedBox(
-            height: 244,
+            height: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 30,
-            ),
-            child: CustomFilledButton(
-              title: 'Continue',
-              onPressed: () {
-                Navigator.pushNamed(context, TransferAmountPage.routeName);
-              },
-            ),
-          )
         ],
       ),
     );

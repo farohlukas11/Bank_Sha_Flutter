@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
-import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
+import 'package:bank_sha/ui/signup/bloc/signup_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';

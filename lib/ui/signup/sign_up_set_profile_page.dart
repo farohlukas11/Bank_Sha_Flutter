@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/data/models/signup_form_model.dart';
-import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
+import 'package:bank_sha/ui/signup/sign_up_set_ktp_page.dart';
 import 'package:bank_sha/ui/widgets/forms.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

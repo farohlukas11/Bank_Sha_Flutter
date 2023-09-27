@@ -3,7 +3,7 @@ import 'package:bank_sha/data/models/signup_form_model.dart';
 import 'package:bank_sha/data/models/topup_form_model.dart';
 import 'package:bank_sha/ui/datapackage/data_package_page.dart';
 import 'package:bank_sha/ui/datapackage/data_package_success_page.dart';
-import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
+import 'package:bank_sha/ui/datapackage/data_provider_page.dart';
 import 'package:bank_sha/ui/editprofile/edit_profile_page.dart';
 import 'package:bank_sha/ui/editprofile/profile_edit_success_page.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
@@ -19,9 +19,9 @@ import 'package:bank_sha/ui/signin/sign_in_page.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
 import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/signup/sign_up_success_page.dart';
-import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
-import 'package:bank_sha/ui/signupktp/sign_up_set_ktp_page.dart';
-import 'package:bank_sha/ui/signupprofile/sign_up_set_profile_page.dart';
+import 'package:bank_sha/ui/signup/bloc/signup_bloc.dart';
+import 'package:bank_sha/ui/signup/sign_up_set_ktp_page.dart';
+import 'package:bank_sha/ui/signup/sign_up_set_profile_page.dart';
 import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
 import 'package:bank_sha/ui/splash/splash_page.dart';
 import 'package:bank_sha/ui/topup/bloc/payment_method_bloc.dart';
@@ -31,9 +31,10 @@ import 'package:bank_sha/ui/topup/topup_success_page.dart';
 import 'package:bank_sha/ui/topup/topup_amount_page.dart';
 import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
 import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
+import 'package:bank_sha/ui/transfer/bloc/transfer_histories_bloc.dart';
 import 'package:bank_sha/ui/transfer/transfer_page.dart';
 import 'package:bank_sha/ui/transfer/transfer_success_page.dart';
-import 'package:bank_sha/ui/transferamount/transfer_amount_page.dart';
+import 'package:bank_sha/ui/transfer/transfer_amount_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_sha/injection.dart' as di;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<RemoveTokenBloc>()),
         BlocProvider(create: (_) => di.locator<PaymentMethodBloc>()),
         BlocProvider(create: (_) => di.locator<TopupMethodBloc>()),
+        BlocProvider(create: (_) => di.locator<TransferHistoriesBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

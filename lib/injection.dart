@@ -13,6 +13,7 @@ import 'package:bank_sha/domain/repositories/user_repository.dart';
 import 'package:bank_sha/domain/usecase/check_email.dart';
 import 'package:bank_sha/domain/usecase/get_payment_method.dart';
 import 'package:bank_sha/domain/usecase/get_token.dart';
+import 'package:bank_sha/domain/usecase/get_transfer_histories.dart';
 import 'package:bank_sha/domain/usecase/get_user.dart';
 import 'package:bank_sha/domain/usecase/get_user_by_id.dart';
 import 'package:bank_sha/domain/usecase/logout_user.dart';
@@ -21,17 +22,19 @@ import 'package:bank_sha/domain/usecase/set_token.dart';
 import 'package:bank_sha/domain/usecase/signin_user.dart';
 import 'package:bank_sha/domain/usecase/signup_user.dart';
 import 'package:bank_sha/domain/usecase/topup_method.dart';
+import 'package:bank_sha/domain/usecase/transfer_method.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/home/bloc/remove_token_bloc.dart';
 import 'package:bank_sha/ui/profile/bloc/logout_bloc.dart';
 import 'package:bank_sha/ui/signin/bloc/sign_in_bloc.dart';
 import 'package:bank_sha/ui/signup/bloc/check_email_bloc.dart';
-import 'package:bank_sha/ui/signupktp/bloc/signup_bloc.dart';
+import 'package:bank_sha/ui/signup/bloc/signup_bloc.dart';
 import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
 import 'package:bank_sha/ui/topup/bloc/payment_method_bloc.dart';
 import 'package:bank_sha/ui/topup/bloc/topup_method_bloc.dart';
 import 'package:bank_sha/ui/transfer/bloc/search_user_bloc.dart';
 import 'package:bank_sha/ui/transfer/bloc/text_field_bloc.dart';
+import 'package:bank_sha/ui/transfer/bloc/transfer_histories_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -51,6 +54,7 @@ void init() {
   locator.registerFactory(() => RemoveTokenBloc(locator()));
   locator.registerFactory(() => PaymentMethodBloc(locator(), locator()));
   locator.registerFactory(() => TopupMethodBloc(locator(), locator()));
+  locator.registerFactory(() => TransferHistoriesBloc(locator(), locator()));
 
   //use case
   locator.registerLazySingleton(() => CheckEmail(locator()));
@@ -64,6 +68,8 @@ void init() {
   locator.registerLazySingleton(() => GetUserById(locator()));
   locator.registerLazySingleton(() => GetPaymentMethod(locator()));
   locator.registerLazySingleton(() => TopUpMethod(locator()));
+  locator.registerLazySingleton(() => GetTransferHistories(locator()));
+  locator.registerLazySingleton(() => TransferMethod(locator()));
 
   //repository
   locator.registerLazySingleton<AuthRepository>(

@@ -1,6 +1,6 @@
 import 'package:bank_sha/common/shared_method.dart';
 import 'package:bank_sha/common/theme.dart';
-import 'package:bank_sha/ui/dataprovider/data_provider_page.dart';
+import 'package:bank_sha/ui/datapackage/data_provider_page.dart';
 import 'package:bank_sha/ui/home/bloc/get_user_bloc.dart';
 import 'package:bank_sha/ui/home/bloc/remove_token_bloc.dart';
 import 'package:bank_sha/ui/profile/profile_page.dart';
@@ -16,6 +16,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../transfer/bloc/transfer_histories_bloc.dart';
+
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
@@ -29,6 +31,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GetUserBloc>(context).add(OnGetUserEvent());
+    BlocProvider.of<TransferHistoriesBloc>(context)
+        .add(OnTransferHistoriesEvent());
 
     return Scaffold(
       backgroundColor: lightBackgroundColor,
@@ -439,46 +443,43 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildSendAgain() {
-    return Container(
-      margin: const EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Send Again',
-            style: blackTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: semiBold,
-            ),
-          ),
-          const SizedBox(
-            height: 14,
-          ),
-          const SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+    return BlocBuilder<TransferHistoriesBloc, TransferHistoriesState>(
+      builder: (context, state) {
+        if (state is TransferHistoriesHasData) {
+          return Container(
+            margin: const EdgeInsets.only(top: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HomeSendAgainItem(
-                  imageUrl: 'assets/img_photo1.png',
-                  username: 'yuanita',
+                Text(
+                  'Send Again',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: semiBold,
+                  ),
                 ),
-                HomeSendAgainItem(
-                  imageUrl: 'assets/img_photo2.png',
-                  username: 'jani',
+                const SizedBox(
+                  height: 14,
                 ),
-                HomeSendAgainItem(
-                  imageUrl: 'assets/img_photo3.png',
-                  username: 'urip',
-                ),
-                HomeSendAgainItem(
-                  imageUrl: 'assets/img_phot4.png',
-                  username: 'masa',
+                ListView.builder(
+                  itemCount: state.listModel.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => HomeSendAgainItem(
+                    imageUrl: state.listModel[index].profilePicture ?? '',
+                    username: state.listModel[index].username ?? '',
+                  ),
                 ),
               ],
             ),
-          )
-        ],
-      ),
+          );
+        } else if (state is TransferHistoriesError) {
+          showCustomSnackBar(context, state.message);
+
+          return const SizedBox();
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 

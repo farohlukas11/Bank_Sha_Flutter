@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/theme.dart';
-import '../signupprofile/sign_up_set_profile_page.dart';
+import 'sign_up_set_profile_page.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 

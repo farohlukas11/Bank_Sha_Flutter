@@ -3,10 +3,14 @@ import 'package:dartz/dartz.dart';
 
 import '../../data/models/bank_model.dart';
 import '../../data/models/topup_form_model.dart';
+import '../../data/models/transfer_form_model.dart';
 
 abstract class TransactionRepository {
   Future<Either<Failure, List<BankModel>>> getPaymentMethod(String token);
 
   Future<Either<Failure, String>> topUpMethod(
       TopUpFormModel topUpFormModel, String token);
+
+  Future<Either<Failure, String>> transferMethod(
+      TransferFormModel transferFormModel, String token);
 }
