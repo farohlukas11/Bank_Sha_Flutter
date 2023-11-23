@@ -3,6 +3,7 @@ import 'package:bank_sha/ui/home/home_page.dart';
 import 'package:bank_sha/ui/onboarding/onboarding_page.dart';
 import 'package:bank_sha/ui/splash/bloc/get_token_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashPage extends StatefulWidget {
@@ -33,7 +34,12 @@ class _SplashPageState extends State<SplashPage> {
                   fit: BoxFit.fill,
                 ),
               ),
-            ),
+            )
+                .animate()
+                .fadeIn(
+                  duration: const Duration(seconds: 2),
+                )
+                .slide(),
           );
         },
         listener: (context, state) {

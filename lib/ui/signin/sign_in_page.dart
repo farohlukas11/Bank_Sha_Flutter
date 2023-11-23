@@ -7,7 +7,9 @@ import 'package:bank_sha/ui/signup/sign_up_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/forms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class SignInPage extends StatefulWidget {
   static const routeName = '/sign-in';
@@ -50,96 +52,119 @@ class _SignInPageState extends State<SignInPage> {
           }
 
           return SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              children: [
-                Container(
-                  width: 155,
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(vertical: 100),
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/img_logo_light.png'),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Sign In &\nGrow Your Finance',
-                  style: blackTextStyle.copyWith(
-                    fontSize: 20,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(22),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: whiteColor,
-                  ),
-                  child: Column(
+            child: AnimationLimiter(
+              child: AnimationConfiguration.synchronized(
+                duration: const Duration(seconds: 1),
+                child: FadeInAnimation(
+                  curve: Curves.easeIn,
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     children: [
-                      //EMAIL INPUT
-                      CustomFormField(
-                        title: 'Email Address',
-                        controller: emailController,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-
-                      //PASSWORD INPUT
-                      CustomFormField(
-                        title: 'Password',
-                        obscureText: true,
-                        controller: passwordController,
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot Password',
-                          style: blueTextStyle,
+                      Container(
+                        width: 155,
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 100),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/img_logo_light.png'),
+                          ),
                         ),
-                      ),
+                      )
+                          .animate()
+                          .slideX(
+                            duration: const Duration(seconds: 2),
+                          )
+                          .fadeIn(),
+                      Text(
+                        'Sign In &\nGrow Your Finance',
+                        style: blackTextStyle.copyWith(
+                          fontSize: 20,
+                          fontWeight: semiBold,
+                        ),
+                      )
+                          .animate()
+                          .slideX(
+                            duration: const Duration(seconds: 2),
+                          )
+                          .fadeIn(),
                       const SizedBox(
                         height: 30,
                       ),
-                      CustomFilledButton(
-                        title: 'Sign In',
-                        onPressed: () {
-                          if (_validate()) {
-                            context.read<SignInBloc>().add(
-                                  OnSignInEvent(
-                                    SignInFormModel(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                    ),
-                                  ),
-                                );
-                          } else {
-                            showCustomSnackBar(
-                                context, 'Semua field harus diisi!');
-                          }
-                        },
+                      Container(
+                        padding: const EdgeInsets.all(22),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: whiteColor,
+                        ),
+                        child: Column(
+                          children: [
+                            //EMAIL INPUT
+                            CustomFormField(
+                              title: 'Email Address',
+                              controller: emailController,
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+
+                            //PASSWORD INPUT
+                            CustomFormField(
+                              title: 'Password',
+                              obscureText: true,
+                              controller: passwordController,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                'Forgot Password',
+                                style: blueTextStyle,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            CustomFilledButton(
+                              title: 'Sign In',
+                              onPressed: () {
+                                if (_validate()) {
+                                  context.read<SignInBloc>().add(
+                                        OnSignInEvent(
+                                          SignInFormModel(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          ),
+                                        ),
+                                      );
+                                } else {
+                                  showCustomSnackBar(
+                                      context, 'Semua field harus diisi!');
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                          .animate()
+                          .fadeIn(
+                            duration: const Duration(milliseconds: 500),
+                          )
+                          .slideY(),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 50),
+                        child: CustomTextButton(
+                          title: 'Create New Account',
+                          onPressed: () {
+                            Navigator.pushNamed(context, SignUpPage.routeName);
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 50),
-                  child: CustomTextButton(
-                    title: 'Create New Account',
-                    onPressed: () {
-                      Navigator.pushNamed(context, SignUpPage.routeName);
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         },
